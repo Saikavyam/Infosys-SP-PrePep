@@ -1,1 +1,466 @@
+Why OOP?
+Problem Before OOP
+In procedural programming, data and functions are separate.
+Example:
+String customerName;
+double balance;
 
+deposit();
+withdraw();
+
+As software grows:
+
+Code becomes difficult to manage
+Data can be modified from anywhere
+Reusability decreases
+Maintenance becomes difficult
+OOP Solution
+
+Object-Oriented Programming organizes software around objects.
+
+An object contains:
+
+Data + Behavior
+
+Instead of thinking about functions first, OOP models real-world entities.
+
+Examples:
+
+Real World                    Software Object
+Student                      	Student Object
+Car	                          Car Object
+Bank Account	                BankAccount Object
+Employee	                    Employee Object
+Product	                      Product Object
+
+Benefits of OOP: 
+1.Better code organization
+2.Reusability
+3.Scalability
+4.Maintainability
+5.Security
+6.Real-world modeling
+
+Class:  A class is a blueprint/template used to create objects.
+
+A class defines:
+
+Attributes (state)
+Methods (behavior)
+
+Example
+class Student {
+
+    String name;
+    int age;
+
+    void study() {
+        System.out.println("Studying");
+    }
+}
+
+Important Point
+
+A class itself does not create memory for actual data.
+
+It is only a design.
+
+Real World Analogy
+
+Blueprint of a house.
+
+A blueprint is not an actual house.
+
+Similarly:
+
+class Car
+
+is not an actual car.
+
+Object
+Definition
+
+An object is an instance of a class.
+
+Example
+Student s1 = new Student();
+
+Now an actual student object exists.
+
+Every Object Has
+1. State
+
+Properties
+
+Example:
+
+Name = Sai
+Age = 22
+
+2. Behavior
+
+Actions
+
+Study()
+Sleep()
+AttendClass()
+3. Identity
+
+Every object has a unique existence.
+
+Example:
+
+Student s1 = new Student();
+Student s2 = new Student();
+
+Both are different objects.
+
+Memory View
+Student s1 = new Student();
+
+Reference Variable:
+
+s1
+
+stored in Stack.
+
+Object:
+
+Student Object
+
+stored in Heap.
+
+Constructor : A constructor is a special member automatically invoked when an object is created.
+
+Purpose:
+1.Initialize object state
+2.Ensure object starts with valid data
+3.Characteristics
+4.Same name as class
+5.No return type
+6.Automatically executed
+7.Can be overloaded
+
+Example
+class Student {
+
+    Student() {
+        System.out.println("Object Created");
+    }
+}
+Student s1 = new Student();
+
+Output:
+
+Object Created
+
+Why Constructors Exist ???
+
+Without constructor:
+
+Student s1 = new Student();
+
+s1.name = "Sai";
+s1.age = 22;
+
+Programmer may forget initialization.
+
+Constructor forces initialization.
+
+Parameterized Constructor
+class Student {
+
+    String name;
+
+    Student(String name) {
+        this.name = name;
+    }
+}
+
+Usage:
+
+Student s1 = new Student("Sai");
+Constructor Overloading
+
+Multiple constructors with different parameters.
+
+Student() {}
+
+Student(String name) {}
+
+Student(String name, int age) {}
+
+Used for flexible object creation.
+
+Default Constructor
+
+If no constructor is written:
+
+class Student {}
+
+Java automatically provides:
+
+Student() {}
+
+called Default Constructor.
+
+Important:
+
+If you create any constructor manually:
+
+Student(String name) {}
+
+Java stops creating the default constructor.
+
+
+this Keyword : this refers to the current object.
+
+Variable Ambiguity
+
+Example:
+
+class Student {
+
+    String name;
+
+    Student(String name) {
+        this.name = name;
+    }
+}
+
+Left side:  this.name
+
+Current object's variable.
+
+Right side: name
+
+Constructor parameter.
+
+Meaning:
+Store parameter value inside current object's variable.
+Visualization
+
+Before Constructor:
+
+Object
+
+name = null
+
+Constructor Call:
+
+new Student("Sai");
+
+Execution:
+
+this.name = name;
+
+After:
+
+Object
+
+name = Sai
+Constructor Chaining
+
+Example:
+
+class Student {
+
+    Student() {
+        this("Sai");
+        System.out.println("Default");
+    }
+
+    Student(String name) {
+        System.out.println(name);
+    }
+}
+
+Execution:
+
+new Student();
+
+Output:
+
+Sai
+Default
+
+Reason:
+
+Default constructor runs
+Calls parameterized constructor
+Parameterized constructor finishes
+Control returns
+Remaining code executes
+Uses of this
+Access Current Object Variable
+this.name
+Call Current Method
+this.display();
+Call Another Constructor
+this("Sai");
+
+Must be first statement.
+
+Encapsulation
+Definition
+
+Encapsulation is the process of hiding internal data and exposing controlled access through methods.
+
+Goal
+
+Protect object state.
+
+Without Encapsulation
+class BankAccount {
+
+    double balance;
+}
+
+Anyone can write:
+
+account.balance = -10000;
+
+Unsafe.
+
+With Encapsulation
+class BankAccount {
+
+    private double balance;
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+Now balance is protected.
+
+Benefits
+Security
+
+Prevents unauthorized modification.
+
+Validation
+
+Rules can be enforced.
+
+Example:
+
+if(amount > 0)
+Maintainability
+
+Internal implementation can change.
+
+Outside code remains unchanged.
+
+Real World Examples
+ATM
+
+Users cannot directly access bank database.
+
+They use:
+
+Withdraw
+Deposit
+Check Balance
+Instagram
+
+Users cannot directly change follower count.
+
+They use:
+
+Follow()
+Unfollow()
+E-Commerce
+
+Stock is modified only through:
+
+Purchase()
+Restock()
+Access Modifiers
+
+Access modifiers control visibility.
+
+Private
+private int age;
+
+Accessible only inside same class.
+
+Best for data hiding.
+
+Default
+int age;
+
+Accessible only within same package.
+
+Protected
+protected int age;
+
+Accessible within same package and child classes.
+
+Public
+public int age;
+
+Accessible everywhere.
+
+Visibility Table
+Modifier	Same  Class	 Same Package	 Child Class	Everywhere
+Private	   Yes	 No	        No	           No
+Default	   Yes	 Yes	      No	           No
+Protected	 Yes	 Yes	      Yes	           No
+Public	   Yes	 Yes	      Yes           	Yes
+Important Interview Questions
+Difference Between Class and Object
+
+Class = Blueprint
+
+Object = Actual Instance
+
+Difference Between Constructor and Method
+
+Constructor:
+
+Same name as class
+No return type
+Automatically invoked
+
+Method:
+
+Any name
+Has return type or void
+Called manually
+Why Use Encapsulation?
+Security
+Validation
+Data Hiding
+Better Maintenance
+Difference Between this.variable and this()
+this.variable
+
+Access current object's variable.
+
+this()
+
+Call another constructor.
+
+Revision Summary
+OOP → Organizes software around objects
+
+Class → Blueprint
+
+Object → Instance of class
+
+Constructor → Initializes object
+
+this → Refers to current object
+
+this() → Calls another constructor
+
+Encapsulation → Hide data, expose operations
+
+Private → Best for data protection
+
+Public → Accessible everywhere
